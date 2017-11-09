@@ -1,0 +1,5 @@
+rootProject.name = 'wisdomgreenhouses'
+include 'adminweb'
+include 'repository'
+include 'common'
+

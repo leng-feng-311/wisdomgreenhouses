@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.jvnet.staxex:stax-ex:1.7.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jvnet.staxex/stax-ex/1.7.1/ca55ae1ee818556df85f4dbda07c147f8f967a29/stax-ex-1.7.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jvnet.staxex/stax-ex/1.7.1/c6b80b910b8376091ccbaadc12f44f54f0f5d6ed/stax-ex-1.7.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

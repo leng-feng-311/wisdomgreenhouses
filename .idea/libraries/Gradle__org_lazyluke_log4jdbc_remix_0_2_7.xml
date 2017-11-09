@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: org.lazyluke:log4jdbc-remix:0.2.7">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.lazyluke/log4jdbc-remix/0.2.7/3125bf52887910bbcd52dcebf8c443640f3ff709/log4jdbc-remix-0.2.7.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.lazyluke/log4jdbc-remix/0.2.7/6069ceb0e17dd6eb7d3ba191678998c19d02f9b5/log4jdbc-remix-0.2.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

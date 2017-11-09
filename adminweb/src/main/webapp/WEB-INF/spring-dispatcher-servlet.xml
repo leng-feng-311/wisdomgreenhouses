@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!--&lt;!&ndash; 将数据封装成JSON数据格式 -->
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+            </list>
+        </property>
+    </bean>
+    <!--&lt;!&ndash; 自动注入 -->
+    <mvc:annotation-driven/>
+
+
+    <!-- 对静态资源文件的访问  restful-->
+    <mvc:resources mapping="/static/**" location="/static/"/>
+
+    <mvc:default-servlet-handler/>
+
+    <!--&lt;!&ndash; 只开启controller注解 -->
+    <context:component-scan base-package="com.hongfeng.greenhouses">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>-->
+    </context:component-scan>
+
+    <!--&lt;!&ndash; 开启跨域服务 -->
+    <!--<mvc:cors>-->
+        <!--<mvc:mapping path="/**" allow-credentials="true" allowed-origins="*" allowed-methods="*" max-age="172800"/>-->
+    <!--</mvc:cors>-->
+
+    <!--&lt;!&ndash;异常解析器-->
+    <!--<bean id="simpleMappingExceptionResolver"-->
+    <!--class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">-->
+    <!--<property name="defaultErrorView" value="demos/demo"/>-->
+    <!--</bean>-->
+
+
+    <!-- 定义使用注解自动扫描的包  定时器必须属于扫描的包中-->
+    <!-- 打开定时器开关 -->
+    <!--<task:annotation-driven/>-->
+
+
+    <!--&lt;!&ndash; 启用注解 -->
+    <context:annotation-config/>
+    <!-- 配置SpringMVC的视图解析器 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 上传拦截，如最大上传值及最小上传值 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize">
+            <value>104857600</value>
+        </property>
+        <property name="maxInMemorySize">
+            <value>4096</value>
+        </property>
+        <property name="defaultEncoding">
+            <value>utf-8</value>
+        </property>
+    </bean>
+
+    <!--错误信息配置 -->
+    <bean id="errorProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="locations">
+            <list>
+                <value>classpath:error_msg_zh.properties</value>
+                <value>classpath:success_msg_zh.properties</value>
+                <value>classpath:message_zh_CN.properties</value>
+            </list>
+        </property>
+    </bean>
+    <!--<bean id="propertyConfigurer" class="com.maxrocky.vesta.message.error.CustomizedPropertyPlaceholderConfigurer">-->
+    <!--<property name="properties" ref="errorProperties"/>-->
+    <!--</bean>-->
+
+    <!-- 资源国际化配置 end -->
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+
+        <property name="basenames">
+            <list>
+                <value>message</value>
+            </list>
+        </property>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="useCodeAsDefaultMessage" value="true"/>
+    </bean>
+
+</beans>

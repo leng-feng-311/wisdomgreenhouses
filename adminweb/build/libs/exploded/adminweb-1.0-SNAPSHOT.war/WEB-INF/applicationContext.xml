@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx.xsd
+						http://www.springframework.org/schema/task
+						http://www.springframework.org/schema/task/spring-task.xsd">
+
+    <!-- 启用注解 -->
+    <context:annotation-config/>
+
+    <!-- 启动组件扫描，排除@Controller组件，该组件由SpringMVC配置文件扫描 -->
+    <context:component-scan base-package="com.hongfeng.greenhouses">
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+    </context:component-scan>
+
+    <!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
+    <!--配置数据源-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!-- 配置hibernateTemplate -->
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <!--数据源 start--><!-- jta数据源 -->
+    <!-- c3p0 数据源 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${jdbc.driver}">
+        </property>
+        <property name="jdbcUrl" value="${jdbc.url}">
+        </property>
+        <property name="user" value="${jdbc.username}">
+        </property>
+        <property name="password" value="${jdbc.password}">
+        </property>
+        <property name="minPoolSize" value="5"/>
+        <property name="maxPoolSize" value="5"/>
+        <property name="maxStatements" value="10"/>
+        <property name="idleConnectionTestPeriod" value="3000"/>
+        <property name="loginTimeout" value="2000"/>
+    </bean>
+
+    <!-- Hibernate Session jtaFactory -->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource">
+            <ref bean="dataSource"/>
+        </property>
+        <property name="packagesToScan" value="com.hongfeng.greenhouses.domain.*">
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!--配置事务-->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+
+    <!--&lt;!&ndash;配置支持基于注解的事物-->
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+
+    <!--&lt;!&ndash; AOP配置 -->
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="productServiceMethods" expression="execution(* com.hongfeng.greenhouses.service..*.*(..))"></aop:pointcut>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods"></aop:advisor>
+    </aop:config>
+
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--&lt;!&ndash; 所有方法都带事务 -->
+            <tx:method name="*" propagation="REQUIRED"/>
+            <!--<tx:method name="get*" read-only="true"></tx:method>-->
+        </tx:attributes>
+    </tx:advice>
+</beans>

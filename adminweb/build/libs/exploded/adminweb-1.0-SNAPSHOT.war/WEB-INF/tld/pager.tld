@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+    version="2.0">
+    
+  <display-name>Pager core</display-name>
+  <tlib-version>1.0</tlib-version>
+  <!-- 标签的短名 -->
+  <short-name>morinda</short-name>
+  <!-- 定义URI -->
+  <uri>/morinda-tags</uri>
+  <tag>
+  	<!-- 标签名 -->
+    <name>pager</name>
+    <!-- 标签处理类 -->
+    <tag-class>com.hongfeng.common.tool.PageTag</tag-class>
+    <!-- 不需要body -->
+    <body-content>
+	empty</body-content>
+    <attribute>
+    	<!-- 属性名称 -->
+        <name>pageIndex</name>
+        <!-- 必填属性 -->
+        <required>true</required>
+        <!-- 支持EL表达式 -->
+        <fragment>true</fragment>
+    </attribute>
+    <attribute>
+    	<!-- 属性名称 -->
+        <name>pageSize</name>
+        <!-- 必填属性 -->
+        <required>true</required>
+        <!-- 支持EL表达式 -->
+        <fragment>true</fragment>
+    </attribute>
+    <attribute>
+    	<!-- 属性名称 -->
+        <name>recordCount</name>
+        <!-- 必填属性 -->
+        <required>true</required>
+        <!-- 支持EL表达式 -->
+        <fragment>true</fragment>
+    </attribute>
+    <attribute>
+    	<!-- 属性名称 -->
+        <name>submitUrl</name>
+        <!-- 必填属性 -->
+        <required>true</required>
+        <!-- 支持EL表达式 -->
+        <fragment>true</fragment>
+    </attribute>
+    <attribute>
+    	<!-- 属性名称 -->
+        <name>parms</name>
+        <!-- 必填属性 -->
+        <required>false</required>
+        <!-- 支持EL表达式 -->
+        <fragment>true</fragment>
+    </attribute>
+  </tag>
+</taglib>

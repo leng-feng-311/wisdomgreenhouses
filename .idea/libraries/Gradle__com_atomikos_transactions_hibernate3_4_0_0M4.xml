@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.atomikos:transactions-hibernate3:4.0.0M4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atomikos/transactions-hibernate3/4.0.0M4/35ac2d6788581d77639168c52a80b5667016af87/transactions-hibernate3-4.0.0M4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atomikos/transactions-hibernate3/4.0.0M4/29c7f4ca0e62271a11a89d508e91f8ea7e207630/transactions-hibernate3-4.0.0M4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

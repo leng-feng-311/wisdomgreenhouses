@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.atomikos:transactions-api:4.0.0M4">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atomikos/transactions-api/4.0.0M4/59e1c21b4b82edc94ba888d9e9c7667d91229731/transactions-api-4.0.0M4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.atomikos/transactions-api/4.0.0M4/77c1d1b7988068c82bc353551a4e969a3b69ef2e/transactions-api-4.0.0M4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

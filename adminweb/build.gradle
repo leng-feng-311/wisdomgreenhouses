@@ -1,0 +1,58 @@
+group 'wisdomgreenhouses'
+version '1.0-SNAPSHOT'
+
+apply plugin: "war"
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile project(":repository")
+    compile project(":common")
+
+    compile fileTree(dir: 'src/libs', include: ['*.jar'])
+
+    compile group: 'cn.songxinqiang', name: 'com.baidu.ueditor', version: '1.1.2-offical'
+    compile group: 'org.freemarker', name: 'freemarker', version: '2.3.26-incubating'
+    compile(
+            "org.springframework:spring-web:$springVersion",
+            "org.springframework:spring-webmvc:$springVersion",
+            "javax.servlet:javax.servlet-api:3.1.0",
+            "javax.servlet.jsp.jstl:javax.servlet.jsp.jstl-api:1.2.1",
+            "org.apache.taglibs:taglibs-standard-impl:1.2.5",
+            "javax.validation:validation-api:1.1.0.Final",
+            "cn.featherfly:bccs-api:3.0.1",
+            "com.notnoop.apns:apns:0.1.6",
+            "javax.servlet.jsp:jsp-api:2.2.1-b03"
+    )
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+task copyJars(type: Copy) {
+    from configurations.runtime
+    into 'src/main/webapp/WEB-INF/lib' //
+}
+task jarWithoutResources(type: Jar) {
+    baseName project.name
+    from("$buildDir/classes/main")
+}
+
+war{
+    dependsOn jarWithoutResources
+    from("$projectDir/src/main/resources") {
+        include "*.properties"
+        into("WEB-INF/classes")
+    }
+    classpath=classpath - sourceSets.main.output
+    classpath fileTree(dir:libsDir, include:"${project.name}-${version}.jar")
+}
+task('jarPath')<<{
+    configurations.runtime.resolve().each {
+        print it.toString()+";"
+    }
+    println();
+}
+
